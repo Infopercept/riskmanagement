@@ -1,0 +1,29 @@
+version: "3.7"
+
+networks:
+  frontend:
+  backend:
+
+volumes:
+  simplerisk-code:
+  simplerisk-db:
+
+services:
+
+  simplerisk:
+    restart: always
+    volumes:
+      - simplerisk-code:/var/www/simplerisk
+      - simplerisk-db:/var/lib/mysql
+    environment:
+    # - FIRST_TIME_SETUP=1
+    - FIRST_TIME_SETUP_PASS=redhat
+    - SIMPLERISK_DB_HOSTNAME=mariadb
+    image: simplerisk:demo  
+    networks:
+      - frontend
+      - backend
+    ports:
+    - 8081:80
+    - 8082:443
+
